@@ -32,11 +32,17 @@ app.get("/api/persons/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
-/*app.get("/info", (request, response) => {
-  const n = persons.length;
-  const time = new Date();
-  response.send(`<p>Phonebook has info for ${n} people</p><p>${time}</p>`);
-});*/
+app.get("/info", (request, response) => {
+  Person.count({}, function (error, count) {
+    response.send(
+      `<p>
+            Phonebook has info for ${count} people
+           </p>
+           <p>${Date(Date.now)}}</p>
+    `
+    );
+  });
+});
 
 app.delete("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
