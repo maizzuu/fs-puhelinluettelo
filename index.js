@@ -34,14 +34,14 @@ app.get("/api/persons/:id", (request, response) => {
   const n = persons.length;
   const time = new Date();
   response.send(`<p>Phonebook has info for ${n} people</p><p>${time}</p>`);
-});
+});*/
 
 app.delete("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  persons = persons.filter((p) => p.id !== id);
-
-  response.status(204).end();
-});*/
+  Person.findByIdAndRemove(request.params.id).then((result) => {
+    response.status(204).end();
+  });
+  // .catch(error =>)
+});
 
 app.post("/api/persons", (request, response) => {
   const body = request.body;
